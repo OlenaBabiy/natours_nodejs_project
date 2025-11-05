@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const Tour = require('./models/tourModel');
 
 dotenv.config({ path: '././config.env' });
 
@@ -14,15 +15,15 @@ mongoose
   })
   .then((con) => console.log('DB connected successfully'));
 
-const testTour = new Tour({
-  name: 'Mountain resort',
-  price: 1500,
-});
+// const testTour = new Tour({
+//   name: 'Mountain resort',
+//   price: 1500,
+// });
 
-testTour
-  .save()
-  .then((docs) => console.log(docs))
-  .catch((err) => console.log('Error', err));
+// testTour
+//   .save()
+//   .then((docs) => console.log(docs))
+//   .catch((err) => console.log('Error', err));
 
 const app = require('./app');
 
