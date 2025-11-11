@@ -1,6 +1,5 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const Tour = require('./models/tourModel');
 
 process.on('uncaughtException', (err) => {
   console.log('uncaught exception!!!');

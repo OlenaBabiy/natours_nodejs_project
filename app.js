@@ -6,12 +6,19 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+
 const tourRouter = require('./public/routes/tourRouter');
 const userRouter = require('./public/routes/userRouter');
+const reviewRouter = require('./public/routes/reviewRouter');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./public/controllers/errorControler');
+const path = require('path');
 
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname), 'views');
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Set security HTTP headers
 app.use(helmet());
@@ -51,7 +58,7 @@ app.use(
 );
 
 //Serving static files
-app.use(express.static(`${__dirname}/../public`));
+// app.use(express.static(`${__dirname}/../public`));
 
 //Test middleware
 /*app.use((req, res, next) => {
@@ -64,8 +71,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.status(200).render('base');
+});
+
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 // if customer enter wrong path, we show this error
 app.all('*', (req, res, next) => {
